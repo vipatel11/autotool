@@ -22,7 +22,12 @@ const store = createStore(rootReducer,
 
 store.firebaseAuthIsReady.then(() => {
 
-  ReactDOM.render(<React.StrictMode><Provider store={store}><App /></Provider></React.StrictMode>,
+  ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
     document.getElementById('root')
   );
 

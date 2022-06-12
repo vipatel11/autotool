@@ -27,9 +27,11 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <title>React App</title>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 
 <body>
+  <div class="g-signin2" data-onsuccess="onSignIn"></div>
   <noscript>You need to enable JavaScript to run this app.</noscript>
   <div id="root"></div>
   <!--
@@ -44,6 +46,11 @@
     -->
   <!-- Compiled and minified JavaScript -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    function onSignIn(googleUser){
+      console.log('User is' + JSON.stringify(googleUser.getBasicProfile()));
+    }
+    </script>
 </body>
 
 </html>

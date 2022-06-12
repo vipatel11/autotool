@@ -1,12 +1,13 @@
-export const signIn = (credentials) => {
+export const signIn = (email,password) => {
 
     return (dispatch, getState, { getFirebase }) => {
         const firebase = getFirebase();
 
         firebase.auth().signInWithEmailAndPassword(
-            credentials.email,
-            credentials.password
+            email.email,
+            password.password
         ).then(() => {
+            console.log("YOU SIGNED IN")
             dispatch({ type: 'LOGIN_SUCCESS' });
         }).catch((err) => {
             dispatch({ type: 'LOGIN_ERROR', err });
@@ -40,7 +41,8 @@ export const signUp = (newUser) => {
                 initials: newUser.firstName[0] + newUser.lastName[0]
             })
         }).then(() => {
-            dispatch({ type: 'SIGNUP_SUCCESS' })
+            dispatch(
+                { type: 'SIGNUP_SUCCESS' })
         }).catch(err => {
             dispatch({ type: 'SIGNUP_ERROR', err })
         })

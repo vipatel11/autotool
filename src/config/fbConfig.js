@@ -1,6 +1,14 @@
-import firebase from 'firebase/app'
-import 'firebase/firestore'
-import 'firebase/auth'
+import firebase from 'firebase/compat/app'
+import {
+    GoogleAuthProvider,
+    getAuth,
+    signInWithPopup,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    sendPasswordResetEmail,
+    signOut,
+  } from "firebase/compat/auth";
+import "firebase/compat/firestore";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -16,5 +24,30 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.firestore().settings({ timestampsInSnapshots: true })
+// const auth = getAuth(app);
+// const db = getFirestore(app);
+
+
+
+// const googleProvider = new GoogleAuthProvider();
+// const signInWithGoogle = async () => {
+//   try {
+//     const res = await signInWithPopup(auth, googleProvider);
+//     const user = res.user;
+//     const q = query(collection(db, "users"), where("uid", "==", user.uid));
+//     const docs = await getDocs(q);
+//     if (docs.docs.length === 0) {
+//       await addDoc(collection(db, "users"), {
+//         uid: user.uid,
+//         name: user.displayName,
+//         authProvider: "google",
+//         email: user.email,
+//       });
+//     }
+//   } catch (err) {
+//     console.error(err);
+//     alert(err.message);
+//   }
+// };
 
 export default firebase;
