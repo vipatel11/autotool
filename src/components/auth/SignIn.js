@@ -1,60 +1,70 @@
-import React, { Component } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
-import { signIn } from '../../store/actions/authActions'
-import { Redirect } from "react-router-dom"
+import { signIn, signUpGmail } from '../../store/actions/authActions'
+import { Redirect } from 'react-router-dom'
 
-class SignIn extends Component {
+const SignIn = (props) => {
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
-    state = {
-        email: '',
-        password: ''
+    const handleEmailChange = (e) => {
+        setEmail(e.target.value)
     }
-    handleChange = (e) => {
-        this.setState({
-            [e.target.id]: e.target.value
-        })
-    }
-
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.signIn(this.state)
+    const handlePasswordChange = (e) => {
+        setPassword(e.target.value)
     }
 
-    render() {
-        const { authError, auth } = this.props;
-        if (auth.uid) return <Redirect to='/' />
-        return (
-            <div className="container">
-                <form onSubmit={this.handleSubmit} className="col s12 m6">
-                    <h5 className="grey-text text-darken-3">Sign In</h5>
-                    <div className="input-field">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" onChange={this.handleChange} />
-                    </div>
-                    <div className="input-field">
-                        <button className="btn pink lighten-1 z-depth-0">Login</button>
-                        <div className="red-text center">
-                            {authError ? <p>{authError}</p> : null}
-                        </div>
-                    </div>
-                </form>
-            </div>
-        )
+
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        let credential = {
+            email: email,
+            password: password,
+        }
+        props.signIn(credential)    
     }
+
+    const { auth } = props
+    if (auth.uid) return <Redirect to='/' />
+    return (
+        <div className='container'>
+            <form onSubmit={handleSubmit} className='col s12 m6'>
+                <h5 className='grey-text text-darken-3'>Sign In</h5>
+                <div className='input-field'>
+                    <label htmlFor='email'>Email</label>
+                    <input
+                        type='email'
+                        id='email'
+                        onChange={handleEmailChange}
+                    />
+                </div>
+                <div className='input-field'>
+                    <label htmlFor='password'>Password</label>
+                    <input
+                        type='password'
+                        id='password'
+                        onChange={handlePasswordChange}
+                    />
+                </div>
+                <div className='input-field'>
+                    <button className='btn pink lighten-1 z-depth-0'>
+                        Login
+                    </button>
+                </div>
+            </form>
+        </div>
+    )
 }
 const mapStateToProps = (state) => {
     return {
         authError: state.auth.authError,
-        auth: state.firebase.auth
+        auth: state.firebase.auth,
     }
 }
 const mapDispatchToProps = (dispatch) => {
     return {
-        signIn: (creds) => dispatch(signIn(creds))
+        signIn: (credential) => dispatch(signIn(credential)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
+
