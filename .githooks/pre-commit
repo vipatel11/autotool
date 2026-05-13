@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -eu
+
+if git diff --cached --quiet; then
+  exit 0
+fi
+
+if git diff --cached --unified=0 | grep '^+' | grep -v '^+++' | grep -Eq 'AIza[0-9A-Za-z_-]{20,}|apiKey[[:space:]]*:'; then
+  echo "Commit blocked: staged changes appear to contain a Firebase/API key."
+  echo "Move Firebase config to src/config/fbConfig.js or another ignored local file."
+  exit 1
+fi
+
+exit 0
