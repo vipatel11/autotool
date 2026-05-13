@@ -1,4 +1,58 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# AutoTool - Project Management Application
+
+AutoTool is a modern web application for managing projects and collaborating with teams. Built with React, Firebase, and Redux, it provides a seamless real-time experience for creating, tracking, and sharing projects.
+
+## Features & Capabilities
+
+### Authentication
+
+- **User Registration**: Sign up with email and create a new account
+- **User Login**: Secure sign-in with Firebase Authentication
+- **Session Management**: Persistent authentication with automatic redirection for protected routes
+
+#### Sign Up Page
+![Sign Up Page](images/signup.png)
+
+#### Sign In Page
+![Sign In Page](images/signin.png)
+
+### Project Management
+
+- **Create Projects**: Add new projects with title and content
+- **View Projects**: Browse all projects in a centralized dashboard
+- **Project Details**: View detailed information about individual projects
+- **Project Summary**: Quick overview cards showing project information
+- **Real-time Sync**: All changes synchronized across the application instantly
+
+### Dashboard
+
+- **Project Overview**: See all your projects at a glance
+- **Notifications**: Real-time notifications for project updates and team activity
+- **Quick Navigation**: Easy access to create new projects or view existing ones
+
+### Notifications
+
+- **Project Notifications**: Automatic notifications when new projects are created
+- **User Activity**: Get notified when new users join the platform
+- **Real-time Updates**: Notifications appear instantly as they're generated
+
+### Backend Infrastructure
+
+- **Cloud Functions**: Automated server-side operations
+  - Auto-generate notifications when projects are created
+  - Track when new users join the platform
+- **Firestore Database**: Scalable real-time database for all application data
+- **User Data Storage**: Secure storage of user profiles and project information
+
+### Technical Stack
+
+- **Frontend**: React with Redux for state management
+- **Authentication**: Firebase Authentication
+- **Database**: Cloud Firestore
+- **Backend**: Firebase Cloud Functions
+- **Real-time Data**: React Redux Firebase integration
+- **Routing**: React Router for client-side navigation
+- **Date/Time**: Moment.js for date formatting
 
 ## Available Scripts
 
@@ -67,8 +121,6 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
 
-
-
 ### NOTE you will have to use this particular npm due to updates not supported
-```npm i --save react-redux@5.1.1 react-redux-firebase@2.2.4```
 
+`npm i --save react-redux@5.1.1 react-redux-firebase@2.2.4`
