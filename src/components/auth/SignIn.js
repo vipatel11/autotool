@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import { signIn, signUpGmail } from '../../store/actions/authActions'
+import { signIn } from '../../store/actions/authActions'
 import { Redirect } from 'react-router-dom'
 
 const SignIn = (props) => {
@@ -18,13 +18,13 @@ const SignIn = (props) => {
     const handleSubmit = (e) => {
         e.preventDefault()
         let credential = {
-            email: email,
+            email: email.trim(),
             password: password,
         }
         props.signIn(credential)    
     }
 
-    const { auth } = props
+    const { auth, authError } = props
     if (auth.uid) return <Redirect to='/' />
     return (
         <div className='container'>
@@ -50,6 +50,9 @@ const SignIn = (props) => {
                     <button className='btn pink lighten-1 z-depth-0'>
                         Login
                     </button>
+                    <div className='red-text center'>
+                        {authError ? <p>{authError}</p> : null}
+                    </div>
                 </div>
             </form>
         </div>
@@ -67,4 +70,3 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn)
-

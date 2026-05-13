@@ -3,9 +3,10 @@ import { Redirect } from "react-router-dom"
 import { connect } from 'react-redux'
 import { signUp } from '../../store/actions/authActions'
 import { signUpGmail } from '../../store/actions/authActions'
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth";
+import firebase from 'firebase/app'
+import 'firebase/auth'
 
-const provider = new GoogleAuthProvider();
+const provider = new firebase.auth.GoogleAuthProvider();
 provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 const SignUp = (props) => {
@@ -41,8 +42,7 @@ const SignUp = (props) => {
     }
     
     useEffect(() => {
-        const auth = getAuth();
-        signInWithPopup(auth, provider)
+        firebase.auth().signInWithPopup(provider)
         .then((result) => {
             props.signUpGmail(result);
             })
@@ -97,4 +97,3 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
-

@@ -4,14 +4,27 @@ export const createProject = (project) => {
 
         //make Async Call to Database
         const firestore = getFirestore();
-        const profile = getState().firebase.profile;
-        const authorId = getState().firebase.auth.uid;
-        firestore.collection('projects').add({
+        const { auth, profile } = getState().firebase;
+        const displayName = auth.displayName || auth.email || 'Unknown User';
+        const nameParts = displayName.split(' ');
+        const authorFirstName = profile.firstName || nameParts[0] || 'Unknown';
+        const authorLastName = profile.lastName || nameParts.slice(1).join(' ') || '';
+        const authorId = auth.uid;
+
+        const notification = {
+            content: 'Added a new project',
+            user: `${authorFirstName} ${authorLastName}`.trim(),
+            time: new Date()
+        };
+
+        return firestore.collection('projects').add({
             ...project,
-            authorFirstName: profile.firstName,
-            authorLastName: profile.lastName,
+            authorFirstName,
+            authorLastName,
             authorId: authorId,
             createdAt: new Date()
+        }).then(() => {
+            return firestore.collection('notifications').add(notification);
         }).then(() => {
             dispatch({ type: 'CREATE_PROJECT', project });
         }).catch((err) => {
